@@ -320,7 +320,9 @@ export default function Home() {
             >
               <div
                 style={{ textAlign: "center" }}
-                className={`${flipped !== 4 ? "show" : "hide"}`}
+                className={`${
+                  flipped === undefined ? "" : flipped !== 4 ? "show" : "hide"
+                }`}
               >
                 <h2 style={{ textAlign: "center" }}>Programming Languages</h2>
 
@@ -365,7 +367,9 @@ export default function Home() {
             >
               <div
                 style={{ textAlign: "center" }}
-                className={`${flipped !== 4 ? "show" : "hide"}`}
+                className={`${
+                  flipped === undefined ? "" : flipped !== 4 ? "show" : "hide"
+                }`}
               >
                 <h2 style={{ textAlign: "center" }}>Front end</h2>
 
@@ -406,7 +410,9 @@ export default function Home() {
             >
               <div
                 style={{ textAlign: "center" }}
-                className={`${flipped !== 4 ? "show" : "hide"}`}
+                className={`${
+                  flipped === undefined ? "" : flipped !== 4 ? "show" : "hide"
+                }`}
               >
                 <h2 style={{ textAlign: "center" }}>Backend end</h2>
 
@@ -446,7 +452,9 @@ export default function Home() {
             >
               <div
                 style={{ textAlign: "center" }}
-                className={`${flipped !== 4 ? "show" : "hide"}`}
+                className={`${
+                  flipped === undefined ? "" : flipped !== 4 ? "show" : "hide"
+                }`}
               >
                 <h2 style={{ textAlign: "center" }}>Database</h2>
                 <h3>click to see more</h3>
@@ -488,7 +496,9 @@ export default function Home() {
             >
               <div
                 style={{ textAlign: "center" }}
-                className={`${flipped !== 4 ? "show" : "hide"}`}
+                className={`${
+                  flipped === undefined ? "" : flipped !== 4 ? "show" : "hide"
+                }`}
               >
                 <h2>Cloud & DevOps</h2>
                 <h3>click to see more</h3>
@@ -501,6 +511,7 @@ export default function Home() {
                   gridTemplateColumns: "50% 50%",
                   display: `${flipped === undefined ? "none" : "initial"}`,
                 }}
+                onClick={(e) => e.stopPropagation()} // Add this line
               >
                 <Button onClick={handleOpen}>
                   <Image
