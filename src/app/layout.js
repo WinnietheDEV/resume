@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={inter.className}>
         <div className="flex-container-column position-absolute-center fade-in-left menu-container">
           <Link href={"/"}>
@@ -36,7 +36,7 @@ export default function RootLayout({ children }) {
         {children}
         <script
           src="https://kit.fontawesome.com/b4ab673a4a.js"
-          crossOrigin="anonymous"
+          crossorigin="anonymous"
         ></script>
       </body>
     </html>

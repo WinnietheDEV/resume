@@ -84,6 +84,7 @@ html,
 body {
   max-width: 100vw;
   max-height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
   overflow-x: hidden;
 }
@@ -94,6 +95,8 @@ body {
   background: linear-gradient( 68.4deg,  rgba(248,182,204,1) 0.5%, rgba(192,198,230,1) 49%, rgba(225,246,240,1) 99.8% );
   position: relative;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
@@ -188,7 +191,7 @@ li {
   border-radius: 2rem;
   background: rgb(255, 255, 255, 0.4);
   padding: 2rem;
-  min-height: 250px;
+  /* min-height: 250px; */
   max-height: 250px;
 }
 
@@ -427,7 +430,11 @@ li {
 }
 
 .content-container {
+  display: flex;
+  flex-direction: column;
   min-width: 100%;
+  min-height: calc(100vh - 12rem);
+  height: calc(100vh - 12rem);
 }
 
 

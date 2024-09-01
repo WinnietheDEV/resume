@@ -26,8 +26,6 @@ import azureLogo from "../../public/skill/devops-tool/azure-logo.jpg";
 import dockerLogo from "../../public/skill/devops-tool/docker-logo.png";
 import { useState } from "react";
 import { Backdrop, Box, Button, Fade, Modal, Typography } from "@mui/material";
-import SkillGroup from "./component/skill";
-import { skillGroups } from "./data/skillGroup";
 
 const modalStyle = {
   position: "absolute",
@@ -51,23 +49,49 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className="content-container">
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={modalStyle}>
+              <Typography
+                id="transition-modal-title"
+                variant="h6"
+                component="h2"
+              >
+                Text in a modal
+              </Typography>
+              <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+              </Typography>
+            </Box>
+          </Fade>
+        </Modal>
         <div
           className="grid-container background-grey"
           style={{
             gridTemplateColumns: "25% 75%",
             gap: "1rem",
             marginBottom: "2rem",
-            maxHeight: "65%",
-            height: "65%",
+            height: "450px",
             overflow: "hidden",
           }}
         >
           <div
+            className="flex-container-column "
             style={{
-              minHeight: "100%",
+              height: "100%",
               justifyContent: "center",
-              display: "flex",
-              flexDirection: "column",
             }}
           >
             <button
@@ -101,7 +125,7 @@ export default function Home() {
               <h2>Experience</h2>
             </button>
           </div>
-          <div style={{ padding: "4rem 1rem", minHeight: "100%" }}>
+          <div style={{ padding: "4rem 1rem", height: "450px" }}>
             {tab === 0 && (
               <div
                 className="grid-container"
@@ -131,10 +155,7 @@ export default function Home() {
                 </div>
                 <div
                   className="flex-container-column"
-                  style={{
-                    height: "100%",
-                    justifyContent: "flex-start",
-                  }}
+                  style={{ height: "100%", justifyContent: "flex-start" }}
                 >
                   <div>
                     <h2 style={{ marginBottom: "1rem" }}>Summary</h2>
@@ -280,48 +301,27 @@ export default function Home() {
             )}
           </div>
         </div>
-        <div style={{ width: "100%", height: "35%", maxHeight: "35%" }}>
+        <div style={{ width: "100%" }}>
           <div
             className="flex-container-row"
-            style={{
-              justifyContent: "space-between",
-              minHeight: "100%",
-              maxHeight: "100%",
-            }}
+            style={{ justifyContent: "space-between" }}
           >
-            {skillGroups.map((skillGroup) => (
-              <SkillGroup
-                group={skillGroup.group}
-                name={skillGroup.name}
-                skills={skillGroup.skills}
-                flipped={flipped}
-                setFlipped={setFlipped}
-              />
-            ))}
             <div
               className={`width-one-fifth skill-container ${
-                flipped && flipped.includes(1) ? "back-flip" : ""
-              } ${flipped && flipped.includes(-1) ? "front-flip" : ""}`}
+                flipped === 4 ? "back-flip" : ""
+              } ${flipped === -4 ? "front-flip" : ""}`}
               onClick={() => {
-                if (flipped && flipped.includes(1)) {
-                  const filteredOut = flipped.filter((value) => value !== 1);
-                  setFlipped([...filteredOut, -1]);
-                } else if (flipped && flipped.includes(-1)) {
-                  const filteredOut = flipped.filter((value) => value !== -1);
-                  setFlipped([...filteredOut, 1]);
-                } else if (!flipped) {
-                  setFlipped([1]);
+                if (flipped === 4) {
+                  setFlipped(-4);
+                } else {
+                  setFlipped(4);
                 }
               }}
             >
               <div
                 style={{ textAlign: "center" }}
                 className={`${
-                  flipped === undefined
-                    ? ""
-                    : flipped && flipped.includes(-1)
-                    ? "show"
-                    : "hide"
+                  flipped === undefined ? "" : flipped !== 4 ? "show" : "hide"
                 }`}
               >
                 <h2 style={{ textAlign: "center" }}>Programming Languages</h2>
@@ -330,7 +330,7 @@ export default function Home() {
               </div>
               <div
                 className={`grid-container justify-items-center ${
-                  flipped && flipped.includes(1) ? "show" : "hide"
+                  flipped === 4 ? "show" : "hide"
                 }`}
                 style={{
                   gridTemplateColumns: "50% 50%",
@@ -355,20 +355,20 @@ export default function Home() {
             </div>
             <div
               className={`width-one-fifth skill-container ${
-                flipped === 2 ? "back-flip" : ""
-              } ${flipped === -2 ? "front-flip" : ""}`}
+                flipped === 4 ? "back-flip" : ""
+              } ${flipped === -4 ? "front-flip" : ""}`}
               onClick={() => {
-                if (flipped === 2) {
-                  setFlipped(-2);
+                if (flipped === 4) {
+                  setFlipped(-4);
                 } else {
-                  setFlipped(2);
+                  setFlipped(4);
                 }
               }}
             >
               <div
                 style={{ textAlign: "center" }}
                 className={`${
-                  flipped === undefined ? "" : flipped !== 2 ? "show" : "hide"
+                  flipped === undefined ? "" : flipped !== 4 ? "show" : "hide"
                 }`}
               >
                 <h2 style={{ textAlign: "center" }}>Front end</h2>
@@ -378,7 +378,7 @@ export default function Home() {
 
               <div
                 className={`grid-container justify-items-center ${
-                  flipped === 2 ? "show" : "hide"
+                  flipped === 4 ? "show" : "hide"
                 }`}
                 style={{
                   gridTemplateColumns: "50% 50%",
@@ -398,20 +398,20 @@ export default function Home() {
             </div>
             <div
               className={`width-one-fifth skill-container ${
-                flipped === 3 ? "back-flip" : ""
-              } ${flipped === -3 ? "front-flip" : ""}`}
+                flipped === 4 ? "back-flip" : ""
+              } ${flipped === -4 ? "front-flip" : ""}`}
               onClick={() => {
-                if (flipped === 3) {
-                  setFlipped(-3);
+                if (flipped === 4) {
+                  setFlipped(-4);
                 } else {
-                  setFlipped(3);
+                  setFlipped(4);
                 }
               }}
             >
               <div
                 style={{ textAlign: "center" }}
                 className={`${
-                  flipped === undefined ? "" : flipped !== 3 ? "show" : "hide"
+                  flipped === undefined ? "" : flipped !== 4 ? "show" : "hide"
                 }`}
               >
                 <h2 style={{ textAlign: "center" }}>Backend end</h2>
@@ -420,7 +420,7 @@ export default function Home() {
               </div>
               <div
                 className={`grid-container justify-items-center ${
-                  flipped === 3 ? "show" : "hide"
+                  flipped === 4 ? "show" : "hide"
                 }`}
                 style={{
                   gridTemplateColumns: "50% 50%",
@@ -484,20 +484,20 @@ export default function Home() {
             </div>
             <div
               className={`width-one-fifth skill-container ${
-                flipped === 5 ? "back-flip" : ""
-              } ${flipped === -5 ? "front-flip" : ""}`}
+                flipped === 4 ? "back-flip" : ""
+              } ${flipped === -4 ? "front-flip" : ""}`}
               onClick={() => {
-                if (flipped === 5) {
-                  setFlipped(-5);
+                if (flipped === 4) {
+                  setFlipped(-4);
                 } else {
-                  setFlipped(5);
+                  setFlipped(4);
                 }
               }}
             >
               <div
                 style={{ textAlign: "center" }}
                 className={`${
-                  flipped === undefined ? "" : flipped !== 5 ? "show" : "hide"
+                  flipped === undefined ? "" : flipped !== 4 ? "show" : "hide"
                 }`}
               >
                 <h2>Cloud & DevOps</h2>
@@ -505,7 +505,7 @@ export default function Home() {
               </div>
               <div
                 className={`grid-container justify-items-center ${
-                  flipped === 5 ? "show" : "hide"
+                  flipped === 4 ? "show" : "hide"
                 }`}
                 style={{
                   gridTemplateColumns: "50% 50%",
