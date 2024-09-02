@@ -11,7 +11,7 @@ export default function Project() {
   return (
     <main className={styles.main}>
       <div className="content-container" style={{ minHeight: "100%" }}>
-        <Grid2 container minHeight={"80vh"} spacing={2}>
+        <Grid2 container minHeight={"100%"} spacing={2}>
           <Grid2
             size={{ xs: 6, md: 6 }}
             maxHeight={"50%"}

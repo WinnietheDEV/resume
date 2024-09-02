@@ -49,34 +49,6 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className="content-container">
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          open={open}
-          onClose={handleClose}
-          closeAfterTransition
-          slots={{ backdrop: Backdrop }}
-          slotProps={{
-            backdrop: {
-              timeout: 500,
-            },
-          }}
-        >
-          <Fade in={open}>
-            <Box sx={modalStyle}>
-              <Typography
-                id="transition-modal-title"
-                variant="h6"
-                component="h2"
-              >
-                Text in a modal
-              </Typography>
-              <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-              </Typography>
-            </Box>
-          </Fade>
-        </Modal>
         <div
           className="grid-container background-grey"
           style={{
@@ -95,7 +67,6 @@ export default function Home() {
             }}
           >
             <button
-              className="first-color"
               style={{
                 textAlign: "center",
                 borderRight: `${tab === 0 ? "0.5rem solid green" : ""}`,
@@ -105,7 +76,6 @@ export default function Home() {
               <h2>Personal Information</h2>
             </button>
             <button
-              className="second-color"
               style={{
                 textAlign: "center",
                 borderRight: `${tab === 1 ? "0.5rem solid orange" : ""}`,
@@ -115,7 +85,6 @@ export default function Home() {
               <h2>About me</h2>
             </button>
             <button
-              className="third-color"
               style={{
                 textAlign: "center",
                 borderRight: `${tab === 2 ? "0.5rem solid blue" : ""}`,

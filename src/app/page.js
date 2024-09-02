@@ -26,8 +26,9 @@ import azureLogo from "../../public/skill/devops-tool/azure-logo.jpg";
 import dockerLogo from "../../public/skill/devops-tool/docker-logo.png";
 import { useState } from "react";
 import { Backdrop, Box, Button, Fade, Modal, Typography } from "@mui/material";
-import SkillGroup from "./component/skill";
-import { skillGroups } from "./data/skillGroup";
+import SkillGroup from "./component/skill/SkillGroup";
+import { skillGroups } from "./data/home/skillGroup";
+import Link from "next/link";
 
 const modalStyle = {
   position: "absolute",
@@ -36,7 +37,7 @@ const modalStyle = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  borderRadius: "2rem",
   boxShadow: 24,
   p: 4,
 };
@@ -45,11 +46,33 @@ export default function Home() {
   const [tab, setTab] = useState(0);
   const [open, setOpen] = useState(false);
   const [flipped, setFlipped] = useState(undefined);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpenSkillDetail = () => setOpen(true);
+  const handleCloseSkillDetail = () => setOpen(false);
+  const [skillDetail, setSkillDetail] = useState(<></>);
 
   return (
     <main className={styles.main}>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleCloseSkillDetail}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={modalStyle}>
+            <Typography id="transition-modal-title" variant="h6" component="h2">
+              {skillDetail}
+            </Typography>
+          </Box>
+        </Fade>
+      </Modal>
       <div className="content-container">
         <div
           className="grid-container background-grey"
@@ -71,105 +94,118 @@ export default function Home() {
             }}
           >
             <button
-              className="first-color"
               style={{
                 textAlign: "center",
-                borderRight: `${tab === 0 ? "0.5rem solid green" : ""}`,
+                borderRight: `${tab === 0 ? "0.5rem solid #555" : ""}`,
               }}
               onClick={() => setTab(0)}
             >
-              <h2>Personal Information</h2>
+              <h2 style={{ fontWeight: 700 }}>Personal Information</h2>
             </button>
             <button
-              className="second-color"
               style={{
                 textAlign: "center",
-                borderRight: `${tab === 1 ? "0.5rem solid orange" : ""}`,
+                borderRight: `${tab === 1 ? "0.5rem solid #555" : ""}`,
               }}
               onClick={() => setTab(1)}
             >
-              <h2>About me</h2>
+              <h2 style={{ fontWeight: 700 }}>About Me</h2>
             </button>
             <button
-              className="third-color"
               style={{
                 textAlign: "center",
-                borderRight: `${tab === 2 ? "0.5rem solid blue" : ""}`,
+                borderRight: `${tab === 2 ? "0.5rem solid #555" : ""}`,
               }}
               onClick={() => setTab(2)}
             >
-              <h2>Experience</h2>
+              <h2 style={{ fontWeight: 700 }}>Experience</h2>
             </button>
           </div>
-          <div style={{ padding: "4rem 1rem", minHeight: "100%" }}>
+          <div style={{ padding: "1rem 1rem", minHeight: "100%" }}>
             {tab === 0 && (
               <div
                 className="grid-container"
-                style={{ gridTemplateColumns: "30% 70%", height: "100%" }}
+                style={{
+                  gridTemplateColumns: "30% 70%",
+                  height: "100%",
+                  columnGap: 2,
+                  // letterSpacing: 1.25,
+                }}
               >
                 <div style={{ marginBottom: "2rem" }}>
-                  <Image src={profile} width={300} height={225} />
-                  <div style={{ alignSelf: "start", marginBottom: "1rem" }}>
-                    <h2>Nawin Sundaraketu</h2>
-                    <h2>Full stack developer</h2>
+                  <Image
+                    src={profile}
+                    width={200}
+                    height={150}
+                    style={{
+                      borderRadius: "2rem",
+                      marginBottom: "1rem",
+                      marginTop: "1rem",
+                    }}
+                  />
+                  <div style={{ alignSelf: "start", marginBottom: "0.5rem" }}>
+                    <h2 style={{ marginBottom: "0.5rem", fontWeight: 700 }}>
+                      Nawin Sundaraketu
+                    </h2>
+                    <h3 style={{ fontWeight: 700 }}>Full stack developer</h3>
                   </div>
-                  <div
-                    className="grid-container"
-                    style={{ gridTemplateColumns: "50% 50%" }}
-                  >
-                    <div>
-                      <h3>Bangkok, Thailand</h3>
-                    </div>
-                    <div>
-                      <h3>
-                        Available to work across all time zones, ensuring
-                        flexibility and adaptability to meet project needs
-                        globally
-                      </h3>
-                    </div>
-                  </div>
+                  <ul style={{ marginLeft: "2rem" }}>
+                    <li>Bangkok, Thailand</li>
+                    <li>Available to work across all time zones</li>
+                  </ul>
                 </div>
                 <div
                   className="flex-container-column"
                   style={{
                     height: "100%",
                     justifyContent: "flex-start",
+                    padding: "2rem",
                   }}
                 >
                   <div>
-                    <h2 style={{ marginBottom: "1rem" }}>Summary</h2>
-                    <h3 style={{ marginBottom: "1rem" }}>
+                    <h3 style={{ marginBottom: "0.5rem", fontWeight: 700 }}>
+                      Summary
+                    </h3>
+                    <p style={{ marginBottom: "1rem", textIndent: 25 }}>
                       Passionate full-stack developer with a strong interest in
                       AWS Solution Architecture and system design. Currently
                       pursuing AWS Certified Solutions Architect certification
                       to deepen my expertise in cloud architecture.
-                    </h3>
+                    </p>
                   </div>
                   <div>
-                    <h2 style={{ marginBottom: "1rem" }}>
+                    <h3 style={{ marginBottom: "0.5rem", fontWeight: 700 }}>
+                      Education
+                    </h3>
+                    <p style={{ textIndent: 25 }}>
                       Bachelor of Science in Sports Science
-                    </h2>
-                    <h3 style={{ marginBottom: "1rem" }}>
-                      [University Name] – [Year of Graduation]
-                    </h3>
+                    </p>
+                    <ul style={{ marginLeft: "4rem", marginBottom: "1rem" }}>
+                      <li> Chulalongkorn Universitoy – 2021</li>
+                    </ul>
                   </div>
                   <div>
-                    <h2 style={{ marginBottom: "1rem" }}>Languages</h2>
-                    <h3 style={{ marginBottom: "1rem" }}>
-                      Thai - native speaker
+                    <h3 style={{ marginBottom: "0.5rem", fontWeight: 700 }}>
+                      Languages
                     </h3>
-                    <h3 style={{ marginBottom: "1rem" }}>
-                      English - intermediate to advanced TOELF ITP: 555/570
-                    </h3>
+                    <ul style={{ marginLeft: "2rem" }}>
+                      <li>Thai: Native speaker</li>
+                      <li>
+                        English: Intermediate to Advanced (TOEFL ITP: 555/570)
+                      </li>
+                    </ul>
+                    <p style={{ marginBottom: "1rem" }}></p>
                   </div>
                   <div>
-                    <h2 style={{ marginBottom: "1rem" }}>
+                    <h3 style={{ marginBottom: "0.5rem", fontWeight: 700 }}>
                       Certifications & Professional Development
-                    </h2>
-                    <h3 style={{ marginBottom: "1rem" }}>
-                      Currently Learning: AWS Certified Solutions Architect (In
-                      Progress)
                     </h3>
+                    <ul style={{ marginLeft: "2rem" }}>
+                      <li>
+                        Currently Learning: AWS Certified Solutions Architect
+                        (In Progress)
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -181,7 +217,7 @@ export default function Home() {
                   paddingRight: "10rem",
                   paddingLeft: "2rem",
                   lineHeight: 1.5,
-                  letterSpacing: 1.25,
+                  // letterSpacing: 1.25,
                 }}
               >
                 <p
@@ -221,57 +257,82 @@ export default function Home() {
                   paddingRight: "2rem",
                   paddingLeft: "2rem",
                   lineHeight: 1.5,
-                  letterSpacing: 1.25,
+                  // letterSpacing: 1.25,
                 }}
               >
-                <h2 style={{ marginBottom: "1rem" }}>JUNE 2023 - PRESENT</h2>
-                <h2 style={{ marginBottom: "1rem" }}>Notus IT Solutions</h2>
-                <h3 style={{ marginBottom: "1rem" }}>Full Stack Developer</h3>
                 <div
                   className="grid-container"
-                  style={{ gridTemplateColumns: "50% 50%", gap: "1.5rem" }}
+                  style={{
+                    gridTemplateColumns: "50% 50%",
+                    marginTop: "2rem",
+                  }}
+                >
+                  <h3 style={{ fontWeight: 700 }}>Notus IT Solutions</h3>
+                  <h4 style={{ fontWeight: 700 }}>JUNE 2023 - PRESENT</h4>
+                  <h4 style={{ fontWeight: 700 }}>Full Stack Developer</h4>
+                </div>
+                <div
+                  className="grid-container"
+                  style={{
+                    gridTemplateColumns: "50% 50%",
+                    gap: "1.5rem",
+                    marginTop: "2rem",
+                  }}
                 >
                   <div>
-                    <h2>role</h2>
+                    <h4 style={{ fontWeight: 700 }}>Contributions</h4>
                     <ul>
-                      <li>Digital transformation: translate com</li>
                       <li>
-                        Developed full-stack web applications which processed,
-                        analyzed, and rendered data visually.
+                        Developed and maintained functional code on both front
+                        and back ends.
                       </li>
                       <li>
-                        Liaised with back end developers, front end developers,
-                        quality assurance testers, and CTO as needed.
+                        Tested and resolved bugs to ensure high-quality code.
                       </li>
                       <li>
-                        Managed time-sensitive updates, including content
-                        changes and database upgrades.
+                        Integrated third-party APIs and external libraries
+                        seamlessly.
                       </li>
                       <li>
-                        Planned, wrote, and debugged web applications and
-                        software with complete accuracy.
+                        Worked with SQL and NoSQL databases, writing efficient
+                        SQL queries and utilizing pipelines for data processing
+                        in NoSQL environments.
+                      </li>
+                      <li>
+                        Extracted and processed data from Excel files to
+                        streamline workflows.
+                      </li>
+                      <li>
+                        Generated PDF files using HTML and CSS for document
+                        automation.
                       </li>
                     </ul>
                   </div>
                   <div>
                     <ul>
-                      <h2>achieve</h2>
-                      <li>Digital transformation: translate com</li>
+                      <h4 style={{ fontWeight: 700 }}>Contributions</h4>
                       <li>
-                        Developed full-stack web applications which processed,
-                        analyzed, and rendered data visually.
+                        Utilized cloud services such as Digital Ocean, DynamoDB,
+                        AWS Amplify, and Azure Document Intelligence.
                       </li>
                       <li>
-                        Liaised with back end developers, front end developers,
-                        quality assurance testers, and CTO as needed.
+                        Authored technical documentation to support team
+                        understanding and project continuity.
                       </li>
-                      <li>
-                        Managed time-sensitive updates, including content
-                        changes and database upgrades.
+                      <li>Deployed code on servers.</li>
+                      <li style={{ marginBottom: "1rem" }}>
+                        Created basic workflows using Microsoft Power Automate.
                       </li>
+                      <h4 style={{ fontWeight: 700 }}>Achievement</h4>
                       <li>
-                        Planned, wrote, and debugged web applications and
-                        software with complete accuracy.
+                        Managed the entire coding process of{" "}
+                        <Link href={"/project/pr-po"}>
+                          <span style={{ textDecoration: "underline" }}>
+                            Purchase Order
+                          </span>
+                        </Link>{" "}
+                        project, from initial development through to production
+                        delivery.
                       </li>
                     </ul>
                   </div>
@@ -296,254 +357,11 @@ export default function Home() {
                 skills={skillGroup.skills}
                 flipped={flipped}
                 setFlipped={setFlipped}
+                handleOpenSkillDetail={handleOpenSkillDetail}
+                handleCloseSkillDetail={handleCloseSkillDetail}
+                setSkillDetail={setSkillDetail}
               />
             ))}
-            <div
-              className={`width-one-fifth skill-container ${
-                flipped && flipped.includes(1) ? "back-flip" : ""
-              } ${flipped && flipped.includes(-1) ? "front-flip" : ""}`}
-              onClick={() => {
-                if (flipped && flipped.includes(1)) {
-                  const filteredOut = flipped.filter((value) => value !== 1);
-                  setFlipped([...filteredOut, -1]);
-                } else if (flipped && flipped.includes(-1)) {
-                  const filteredOut = flipped.filter((value) => value !== -1);
-                  setFlipped([...filteredOut, 1]);
-                } else if (!flipped) {
-                  setFlipped([1]);
-                }
-              }}
-            >
-              <div
-                style={{ textAlign: "center" }}
-                className={`${
-                  flipped === undefined
-                    ? ""
-                    : flipped && flipped.includes(-1)
-                    ? "show"
-                    : "hide"
-                }`}
-              >
-                <h2 style={{ textAlign: "center" }}>Programming Languages</h2>
-
-                <h3>click to see more</h3>
-              </div>
-              <div
-                className={`grid-container justify-items-center ${
-                  flipped && flipped.includes(1) ? "show" : "hide"
-                }`}
-                style={{
-                  gridTemplateColumns: "50% 50%",
-                  display: `${flipped === undefined ? "none" : "initial"}`,
-                }}
-              >
-                <Image
-                  src={jsLogo}
-                  width={75}
-                  height={75}
-                  alt="javascript logo"
-                />
-                <Image
-                  src={pythonLogo}
-                  width={75}
-                  height={75}
-                  alt="python logo"
-                />
-                <Image src={phpLogo} width={75} height={75} alt="php logo" />
-                <Image src={javaLogo} width={75} height={75} alt="java logo" />
-              </div>
-            </div>
-            <div
-              className={`width-one-fifth skill-container ${
-                flipped === 2 ? "back-flip" : ""
-              } ${flipped === -2 ? "front-flip" : ""}`}
-              onClick={() => {
-                if (flipped === 2) {
-                  setFlipped(-2);
-                } else {
-                  setFlipped(2);
-                }
-              }}
-            >
-              <div
-                style={{ textAlign: "center" }}
-                className={`${
-                  flipped === undefined ? "" : flipped !== 2 ? "show" : "hide"
-                }`}
-              >
-                <h2 style={{ textAlign: "center" }}>Front end</h2>
-
-                <h3>click to see more</h3>
-              </div>
-
-              <div
-                className={`grid-container justify-items-center ${
-                  flipped === 2 ? "show" : "hide"
-                }`}
-                style={{
-                  gridTemplateColumns: "50% 50%",
-                  display: `${flipped === undefined ? "none" : "initial"}`,
-                }}
-              >
-                <Image src={htmlLogo} width={75} height={75} alt="html logo" />
-                <Image src={cssLogo} width={75} height={75} alt="css logo" />
-                <Image
-                  src={reactLogo}
-                  width={75}
-                  height={75}
-                  alt="react logo"
-                />
-                <Image src={nextLogo} width={75} height={75} alt="next logo" />
-              </div>
-            </div>
-            <div
-              className={`width-one-fifth skill-container ${
-                flipped === 3 ? "back-flip" : ""
-              } ${flipped === -3 ? "front-flip" : ""}`}
-              onClick={() => {
-                if (flipped === 3) {
-                  setFlipped(-3);
-                } else {
-                  setFlipped(3);
-                }
-              }}
-            >
-              <div
-                style={{ textAlign: "center" }}
-                className={`${
-                  flipped === undefined ? "" : flipped !== 3 ? "show" : "hide"
-                }`}
-              >
-                <h2 style={{ textAlign: "center" }}>Backend end</h2>
-
-                <h3>click to see more</h3>
-              </div>
-              <div
-                className={`grid-container justify-items-center ${
-                  flipped === 3 ? "show" : "hide"
-                }`}
-                style={{
-                  gridTemplateColumns: "50% 50%",
-                  display: `${flipped === undefined ? "none" : "initial"}`,
-                }}
-              >
-                <Image
-                  src={expressLogo}
-                  width={75}
-                  height={75}
-                  alt="express logo"
-                />
-                <Image src={nestLogo} width={75} height={75} alt="nest logo" />
-                <Image src={nodeLogo} width={75} height={75} alt="node logo" />
-                <Image src={nextLogo} width={75} height={75} alt="next logo" />
-              </div>
-            </div>
-            <div
-              className={`width-one-fifth skill-container ${
-                flipped === 4 ? "back-flip" : ""
-              } ${flipped === -4 ? "front-flip" : ""}`}
-              onClick={() => {
-                if (flipped === 4) {
-                  setFlipped(-4);
-                } else {
-                  setFlipped(4);
-                }
-              }}
-            >
-              <div
-                style={{ textAlign: "center" }}
-                className={`${
-                  flipped === undefined ? "" : flipped !== 4 ? "show" : "hide"
-                }`}
-              >
-                <h2 style={{ textAlign: "center" }}>Database</h2>
-                <h3>click to see more</h3>
-              </div>
-              <div
-                className={`grid-container justify-items-center ${
-                  flipped === 4 ? "show" : "hide"
-                }`}
-                style={{
-                  gridTemplateColumns: "50% 50%",
-                  display: `${flipped === undefined ? "none" : "initial"}`,
-                }}
-              >
-                <Image
-                  src={postgressLogo}
-                  width={75}
-                  height={75}
-                  alt="postgress logo"
-                />
-                <Image
-                  src={mongodbLogo}
-                  width={75}
-                  height={75}
-                  alt="mongodDB logo"
-                />
-              </div>
-            </div>
-            <div
-              className={`width-one-fifth skill-container ${
-                flipped === 5 ? "back-flip" : ""
-              } ${flipped === -5 ? "front-flip" : ""}`}
-              onClick={() => {
-                if (flipped === 5) {
-                  setFlipped(-5);
-                } else {
-                  setFlipped(5);
-                }
-              }}
-            >
-              <div
-                style={{ textAlign: "center" }}
-                className={`${
-                  flipped === undefined ? "" : flipped !== 5 ? "show" : "hide"
-                }`}
-              >
-                <h2>Cloud & DevOps</h2>
-                <h3>click to see more</h3>
-              </div>
-              <div
-                className={`grid-container justify-items-center ${
-                  flipped === 5 ? "show" : "hide"
-                }`}
-                style={{
-                  gridTemplateColumns: "50% 50%",
-                  display: `${flipped === undefined ? "none" : "initial"}`,
-                }}
-                onClick={(e) => e.stopPropagation()} // Add this line
-              >
-                <Button onClick={handleOpen}>
-                  <Image
-                    className={"rotate"}
-                    src={awsLogo}
-                    width={75}
-                    height={75}
-                    alt="aws logo"
-                    style={{ transform: "rotateY(-180deg)" }}
-                  />
-                </Button>
-                <Button onClick={handleOpen} disableRipple>
-                  <Image
-                    className={"rotate"}
-                    src={azureLogo}
-                    width={75}
-                    height={75}
-                    alt="azure logo"
-                    style={{ transform: "rotateY(-180deg)" }}
-                  />
-                </Button>
-
-                <Image
-                  className={"rotate"}
-                  src={dockerLogo}
-                  width={75}
-                  height={75}
-                  alt="docker logo"
-                  style={{ transform: "rotateY(-180deg)" }}
-                />
-              </div>
-            </div>
           </div>
         </div>
       </div>
