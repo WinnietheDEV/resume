@@ -4,26 +4,6 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import profile from "../../public/profile.jpg";
 
-import jsLogo from "../../public/skill/programming-language/js-logo.png";
-import pythonLogo from "../../public/skill/programming-language/python-logo.png";
-import phpLogo from "../../public/skill/programming-language/php-logo.png";
-import javaLogo from "../../public/skill/programming-language/java-logo.png";
-
-import htmlLogo from "../../public/skill/front-end/html-logo.jpg";
-import cssLogo from "../../public/skill/front-end/css-logo.png";
-import reactLogo from "../../public/skill/front-end/react-logo.png";
-import nextLogo from "../../public/skill/front-end/next-logo.webp";
-
-import nestLogo from "../../public/skill/back-end/nest-logo.svg";
-import expressLogo from "../../public/skill/back-end/express-logo.jpg";
-import nodeLogo from "../../public/skill/back-end/nodejs-logo.png";
-
-import postgressLogo from "../../public/skill/database/postgress-logo.png";
-import mongodbLogo from "../../public/skill/database/mongodb-logo.jpg";
-
-import awsLogo from "../../public/skill/devops-tool/aws-logo.png";
-import azureLogo from "../../public/skill/devops-tool/azure-logo.jpg";
-import dockerLogo from "../../public/skill/devops-tool/docker-logo.png";
 import { useState } from "react";
 import { Backdrop, Box, Button, Fade, Modal, Typography } from "@mui/material";
 import SkillGroup from "./component/skill/SkillGroup";
@@ -93,33 +73,22 @@ export default function Home() {
               flexDirection: "column",
             }}
           >
-            <button
-              style={{
-                textAlign: "center",
-                borderRight: `${tab === 0 ? "0.5rem solid #555" : ""}`,
-              }}
-              onClick={() => setTab(0)}
-            >
-              <h2 style={{ fontWeight: 700 }}>Personal Information</h2>
-            </button>
-            <button
-              style={{
-                textAlign: "center",
-                borderRight: `${tab === 1 ? "0.5rem solid #555" : ""}`,
-              }}
-              onClick={() => setTab(1)}
-            >
-              <h2 style={{ fontWeight: 700 }}>About Me</h2>
-            </button>
-            <button
-              style={{
-                textAlign: "center",
-                borderRight: `${tab === 2 ? "0.5rem solid #555" : ""}`,
-              }}
-              onClick={() => setTab(2)}
-            >
-              <h2 style={{ fontWeight: 700 }}>Experience</h2>
-            </button>
+            {[
+              { name: "Personal Information", tab: 0 },
+              { name: "About Me", tab: 1 },
+              ,
+              { name: "Experience", tab: 2 },
+            ].map((menu) => (
+              <button
+                style={{
+                  textAlign: "center",
+                  borderRight: `${tab === menu.tab ? "0.5rem solid #555" : ""}`,
+                }}
+                onClick={() => setTab(menu.tab)}
+              >
+                <h2 style={{ fontWeight: 700 }}>{menu.name}</h2>
+              </button>
+            ))}
           </div>
           <div style={{ padding: "1rem 1rem", minHeight: "100%" }}>
             {tab === 0 && (
@@ -145,7 +114,7 @@ export default function Home() {
                   />
                   <div style={{ alignSelf: "start", marginBottom: "0.5rem" }}>
                     <h2 style={{ marginBottom: "0.5rem", fontWeight: 700 }}>
-                      Nawin Sundaraketu
+                      Nawin Sundaraketu (Win)
                     </h2>
                     <h3 style={{ fontWeight: 700 }}>Full stack developer</h3>
                   </div>
@@ -191,7 +160,7 @@ export default function Home() {
                     <ul style={{ marginLeft: "2rem" }}>
                       <li>Thai: Native speaker</li>
                       <li>
-                        English: Intermediate to Advanced (TOEFL ITP: 555/570)
+                        English: Intermediate to Advanced (TOEFL ITP: 563/677)
                       </li>
                     </ul>
                     <p style={{ marginBottom: "1rem" }}></p>

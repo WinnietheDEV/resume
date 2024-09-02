@@ -18,7 +18,7 @@ export default function Contact() {
           <div
             className="flex-container-column"
             style={{
-              gap: "8rem",
+              gap: "2rem",
               minHeight: "100%",
               justifyContent: "center",
               padding: "5rem",
@@ -27,7 +27,7 @@ export default function Contact() {
           >
             <a href="https://linkedin.com/in/nawin-sundaraketu" target="blank">
               <div
-                className="grid-container"
+                className="grid-container contact-container"
                 style={{ gridTemplateColumns: "25% 75%" }}
               >
                 <i class="fa-brands fa-linkedin-in icon-big"> </i>
@@ -35,9 +35,18 @@ export default function Contact() {
                 <h2 style={{ alignSelf: "center" }}>Nawin Sundaraketu</h2>
               </div>
             </a>
+            <a href="https://github.com/WinnietheDEV/resume" target="blank">
+              <div
+                className="grid-container contact-container"
+                style={{ gridTemplateColumns: "25% 75%" }}
+              >
+                <i class="fa-brands fa-github icon-big"></i>
+                <h2 style={{ alignSelf: "center" }}>WinnietheDEV</h2>
+              </div>
+            </a>
             <a href="tel:+66903208762" target="blank">
               <div
-                className="grid-container"
+                className="grid-container contact-container"
                 style={{ gridTemplateColumns: "25% 75%" }}
               >
                 <i class="fa-solid fa-phone icon-big"></i>
@@ -46,7 +55,7 @@ export default function Contact() {
             </a>
             <a href="https://www.facebook.com/Nawin18778/" target="blank">
               <div
-                className="grid-container"
+                className="grid-container contact-container"
                 style={{ gridTemplateColumns: "25% 75%" }}
               >
                 <i class="fa-brands fa-facebook-f icon-big"> </i>
@@ -55,7 +64,7 @@ export default function Contact() {
             </a>
             <a href="https://www.instagram.com/iwinluvu/" target="blank">
               <div
-                className="grid-container"
+                className="grid-container contact-container"
                 style={{ gridTemplateColumns: "25% 75%" }}
               >
                 <i class="fa-brands fa-instagram icon-big"> </i>

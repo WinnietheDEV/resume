@@ -1,13 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import prPoWorkFlow from "../../../../public/project/pr-po/pr-po-workflow.png";
-import html from "../../../../public/project/pr-po/html-pdf.png";
-import pdf from "../../../../public/project/pr-po/pdf-export.png";
-import excelData from "../../../../public/project/pr-po/excel-data.png";
-import excelResult from "../../../../public/project/pr-po/excel-result.png";
-import signature from "../../../../public/project/pr-po/signature.png";
-import signatureBase64 from "../../../../public/project/pr-po/signature-base64.png";
-import graph from "../../../../public/project/pr-po/summary.png";
 import { Grid2 } from "@mui/material";
 import { prPoContributions } from "@/app/data/project/contribution";
 import Contribution from "@/app/component/project/Contribution";
@@ -20,7 +13,7 @@ export default function PrPoProject() {
           Purchase Order Process
         </h1>
         <h2 style={{ marginBottom: "1rem", fontWeight: 700 }}>Overview</h2>
-        <Grid2 container>
+        <Grid2 container sx={{ marginBottom: "2rem" }}>
           <Grid2 size={{ md: 6, xs: 12 }}>
             <p style={{ textIndent: 25 }}>
               This project focuses on digitizing the company’s purchase order
@@ -29,7 +22,7 @@ export default function PrPoProject() {
               orders, with purchase requests and purchase orders being the core
               features. In addition to these modules, the project also features
               data import from Excel files, PDF generation from HTML and CSS,
-              user signature storage, and graphical data display..
+              user signature storage, and graphical data display.
             </p>
           </Grid2>
           <Grid2 size={{ md: 6, xs: 12 }}>

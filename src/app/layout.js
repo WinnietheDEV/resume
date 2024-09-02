@@ -5,8 +5,9 @@ import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Nawin's Website",
-  description: "A website for knowing more about Win.",
+  title: "Welcome to Win's Corner",
+  description:
+    "Explore Nawin's world—his projects, passions, and personal journey. Stay updated with the latest from Win!",
 };
 
 export default function RootLayout({ children }) {
